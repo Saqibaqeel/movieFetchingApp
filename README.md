@@ -18,9 +18,10 @@ cd frontend
 npm install
 ## backend setup 
 cd backend
-npm install 
-make sure add .env file
-MONGO_URL=mongodb://127.0.0.1:27017/mydb
-PORT=3000
-JWT_SECRET=your_jwt_secret_key
+-npm install 
+
+-make sure add .env file
+-MONGO_URL=mongodb://127.0.0.1:27017/mydb
+-PORT=3000
+-JWT_SECRET=your_jwt_secret_key
 
