@@ -1,4 +1,6 @@
   
+
+
 ##  Tech Stack
 
 - **Frontend**: React, Bootstrap, Font Awesome  
@@ -10,20 +12,19 @@
 
 ## ⚙️ Setup Instructions
 
-### 1. Clone the repository
-
+```bash
 git clone https://github.com/Saqibaqeel/movieFetchingApp.git
+
 cd frontend
 npm install
 npm run dev
 
-## backend setup 
 cd backend
 npm install
 
-
+# Create .env file in backend and add
 MONGO_URL=mongodb://127.0.0.1:27017/mydb
 PORT=3000
 JWT_SECRET=your_jwt_secret_key
 
-
+node index.js
