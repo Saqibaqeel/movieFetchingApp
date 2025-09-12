@@ -42,8 +42,7 @@ export default function MovieCard() {
             const title = item.primaryTitle || "Untitled";
             const year = item.startYear || "";
             const img =
-              item.primaryImage?.url ||
-              "https://via.placeholder.com/300x450?text=No+Image";
+              item.primaryImage?.url 
             const genres = item.genres?.join(", ") || "";
             const rating = item.rating?.aggregateRating || "N/A";
             const votes = item.rating?.voteCount || "";

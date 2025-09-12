@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import useAuth from "../store/authStore";
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../store/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const { Signup, isSignUp } = useAuth();
+  const dispatch = useDispatch();
+  const { isSignUp } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -19,24 +21,19 @@ export default function SignUp() {
 
   const validateForm = () => {
     const { fullName, email, password } = formData;
-    if (!fullName || !email || !password) {
-      
-      return false;
-    }
-    return true;
+    return fullName && email && password;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+
     try {
-      await Signup(formData);
+      await dispatch(signup(formData)).unwrap();
       setFormData({ fullName: "", email: "", password: "" });
       navigate("/login");
-      
     } catch (error) {
       console.error("Error during sign up:", error);
-
     }
   };
 

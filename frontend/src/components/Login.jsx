@@ -1,21 +1,21 @@
-
 import React, { useState, useEffect } from "react";
-import useAuth from "../store/authStore";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../store/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
+  const dispatch = useDispatch();
+  const { authUser, isLogin } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/");
-  }, [isAuthenticated, navigate]);
+    if (authUser) navigate("/");
+  }, [authUser, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,29 +24,19 @@ export default function Login() {
 
   const validateForm = () => {
     const { email, password } = formData;
-    if (!email || !password) {
-     
-      return false;
-    }
-    return true;
+    return email && password;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    setLoading(true);
     try {
-      await login(formData); 
-       
+      await dispatch(login(formData)).unwrap();
       setFormData({ email: "", password: "" });
       navigate("/");
-      
     } catch (err) {
       console.error("Login error:", err);
-     
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -80,12 +70,8 @@ export default function Login() {
             />
           </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary w-100"
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Log In"}
+          <button type="submit" className="btn btn-primary w-100" disabled={isLogin}>
+            {isLogin ? "Logging in..." : "Log In"}
           </button>
         </form>
 
