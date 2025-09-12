@@ -13,7 +13,8 @@ import { Toaster } from 'react-hot-toast'
 function App() {
 const navigate = useNavigate();
   
-  const {checkAuth,isCheckingAuth,authUser}=useAuth()
+  const {checkAuth,isCheckingAuth,authUser,usrerSearchHistory}=useAuth()
+  console.log("serhis",usrerSearchHistory);
 
   useEffect(() => {
     checkAuth();

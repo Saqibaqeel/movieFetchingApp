@@ -70,6 +70,7 @@ const login = async (req, res) => {
         });
         
     } catch (error) {
+        res.status.json({msg:'Server Error'});
         console.log('error while login', error);
         
     }

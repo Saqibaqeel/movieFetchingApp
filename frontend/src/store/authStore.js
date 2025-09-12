@@ -69,7 +69,7 @@ const  useAuth=create((set)=>({
             
         } catch (error) {
 
-            toast.error("somthin went wrong")
+            toast.error("invalid credentials")
             
         }
         finally{

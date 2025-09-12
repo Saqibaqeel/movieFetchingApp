@@ -25,7 +25,7 @@ export default function Login() {
   const validateForm = () => {
     const { email, password } = formData;
     if (!email || !password) {
-      alert("All fields are required!");
+     
       return false;
     }
     return true;
@@ -38,11 +38,13 @@ export default function Login() {
     setLoading(true);
     try {
       await login(formData); 
+       
       setFormData({ email: "", password: "" });
       navigate("/");
+      
     } catch (err) {
       console.error("Login error:", err);
-      alert(err?.message || "Login failed. Please try again.");
+     
     } finally {
       setLoading(false);
     }

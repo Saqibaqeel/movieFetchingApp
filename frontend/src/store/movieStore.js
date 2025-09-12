@@ -25,7 +25,11 @@ const  moveStore=create((set)=>({
             set({ismoviesLoading:true})
             const res=await axios.get(`https://api.imdbapi.dev/search/titles?query=${name}`)
             set({movies:res.data})
-            set((state)=>({usrerSearchHistory:[...state.usrerSearchHistory,name]}))
+           
+
+            set((state)=>({
+                usrerSearchHistory:[name,...state.usrerSearchHistory.filter(item=>item!==name)].slice(0,5)
+            }))
             
             
         } catch (error) {
