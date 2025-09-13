@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../store/authSlice";
+import { signUp } from "../Redux/slice/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function SignUp() {
@@ -29,11 +29,11 @@ export default function SignUp() {
     if (!validateForm()) return;
 
     try {
-      await dispatch(signup(formData)).unwrap();
+      await dispatch(signUp(formData)).unwrap();
       setFormData({ fullName: "", email: "", password: "" });
       navigate("/login");
     } catch (error) {
-      console.error("Error during sign up:", error);
+      console.error(error);
     }
   };
 
@@ -53,7 +53,6 @@ export default function SignUp() {
               required
             />
           </div>
-
           <div className="mb-3">
             <label className="form-label">Email address</label>
             <input
@@ -65,7 +64,6 @@ export default function SignUp() {
               required
             />
           </div>
-
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input
@@ -77,17 +75,12 @@ export default function SignUp() {
               required
             />
           </div>
-
           <button type="submit" className="btn btn-primary w-100" disabled={isSignUp}>
             {isSignUp ? "Signing Up..." : "Sign Up"}
           </button>
         </form>
-
         <p className="text-center mt-3">
-          Already have an account?{" "}
-          <Link to="/login" className="text-decoration-none">
-            Log In
-          </Link>
+          Already have an account? <Link to="/login" className="text-decoration-none">Log In</Link>
         </p>
       </div>
     </div>

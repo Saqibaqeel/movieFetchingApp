@@ -1,14 +1,15 @@
-// File: MovieCard.jsx
 import React, { useEffect } from "react";
-import moveStore from "../store/movieStore";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies } from "../Redux/slice/moveSlice";
 import CardSkelaton from "./CardSkelaton";
 
 export default function MovieCard() {
-  const { movies, ismoviesLoading, setMovies } = moveStore();
+  const dispatch = useDispatch();
+  const { movies, isMoviesLoading } = useSelector((state) => state.movies);
 
   useEffect(() => {
-    setMovies(); // fetch movies on mount
-  }, [setMovies]);
+    dispatch(fetchMovies());
+  }, [dispatch]);
 
   const list = Array.isArray(movies) ? movies : movies?.titles || [];
 
@@ -29,8 +30,8 @@ export default function MovieCard() {
         }
       `}</style>
 
-      {ismoviesLoading ? (
-        <CardSkelaton/>
+      {isMoviesLoading ? (
+        <CardSkelaton />
       ) : (
         <div className="row g-4">
           {list.length === 0 && (
@@ -41,8 +42,7 @@ export default function MovieCard() {
             const id = item.id || `movie-${idx}`;
             const title = item.primaryTitle || "Untitled";
             const year = item.startYear || "";
-            const img =
-              item.primaryImage?.url 
+            const img = item.primaryImage?.url;
             const genres = item.genres?.join(", ") || "";
             const rating = item.rating?.aggregateRating || "N/A";
             const votes = item.rating?.voteCount || "";

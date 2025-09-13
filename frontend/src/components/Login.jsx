@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { login } from "../Redux/slice/authSlice"
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../store/authSlice";
 import { useNavigate, Link } from "react-router-dom";
+
+
+
 
 export default function Login() {
   const navigate = useNavigate();
